@@ -25,7 +25,7 @@ const main = async () => {
       store: new RedisStore({
         client: redis,
       }),
-      secret: 'keyboard cat',
+      secret: process.env.COOKIE_SECRET!,
       resave: true,
       saveUninitialized: false,
       cookie: {
