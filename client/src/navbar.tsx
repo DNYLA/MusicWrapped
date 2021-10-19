@@ -1,5 +1,5 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
 
@@ -15,6 +15,17 @@ function classNames(...classes: any) {
 }
 
 export default function Example() {
+  const clickFunction = () => {
+    console.log('Clickeronio');
+    console.log(navigation);
+    navigation[2].current = true;
+    console.log(navigation);
+  };
+
+  useEffect(() => {
+    console.log('re render');
+  }, [navigation]);
+
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -58,6 +69,7 @@ export default function Example() {
                           'px-3 py-2 rounded-md text-sm font-medium'
                         )}
                         aria-current={item.current ? 'page' : undefined}
+                        onClick={clickFunction}
                       >
                         {item.name}
                       </a>

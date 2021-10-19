@@ -35,7 +35,7 @@ export default class MusicWrappedAPI {
 
   public async tracksTest() {
     const token =
-      'BQBY4ITX_I2G17XWARDRa5xnI_B7zP_rHykcRYDgFsa0okWhwF4o77hOdXAvTLc68uGGStwx9-ugwy9ZxzK-VhfLKWyfzyna_awMadtWHz0hvoRBCjbEjS2YmDxOwLFLod7AZLlbCQxkFAqkQgSwdKAioLgUlq0wWwE9UXQscorMJ2IIDs9X5oPpdQw';
+      'BQDHsFbSO8ObPfxjItkGMMYNbaKYAg9FxmIV1YgsPpNcR60XBz_j75FN2P51AGtnNquMmh9EMN5oh63yULRrWjHUPAYshAAg-Y-bNDucrzIc9thc9zrHoqr4AHSN1sTQ2oGQr4siEui_OBXPMpQ5zJCr4urBiQ-RBsWx-BNQU34x1GRu1tnjDDtgXuE';
     try {
       const data = (
         await axios.get('https://api.spotify.com/v1/me/top/tracks', {
