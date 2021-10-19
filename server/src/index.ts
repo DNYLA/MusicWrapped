@@ -7,6 +7,7 @@ import { authRouter } from './routes/auth';
 import { PrismaClient } from '@prisma/client';
 import { redis } from './redis';
 import 'dotenv/config';
+import { userInfo } from 'os';
 
 const prisma = new PrismaClient();
 
@@ -38,7 +39,7 @@ const main = async () => {
 
   app.use(
     cors({
-      origin: 'http://localhost:3000',
+      origin: ['http://localhost:3000', 'http://localhost:3000/'],
       credentials: true,
     }),
   );
@@ -49,10 +50,20 @@ const main = async () => {
   app.get('/', async function (req, res) {
     console.log('TEST');
     console.log(req.session);
-    const allUsers = await prisma.user.findMany();
-    // const allUsers = await prisma.user.findUnique({ where: { id: 1 } });
+    // const allUsers = await prisma.user.findMany();
+    const passportSession = req.session.passport!;
+    if (!passportSession) {
+      return res.send('Not Logged In');
+    }
+
+    // if (!user) {
+    // }
+
+    const curUser = await prisma.user.findUnique({
+      where: { id: passportSession.user.id },
+    });
     // res.send(allUsers);
-    return res.send(allUsers);
+    return res.send(curUser);
   });
 
   app.use('/auth', authRouter);

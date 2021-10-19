@@ -56,7 +56,7 @@ passport.use(
 authRouter.get(
   '/spotify',
   passport.authenticate('spotify', {
-    scope: ['user-read-email', 'user-read-private'],
+    scope: ['user-read-email', 'user-read-private', 'user-top-read'],
   }),
 );
 
@@ -69,7 +69,7 @@ authRouter.get(
     // res.send(req.session);
     // req.session.userId = res.use;
     // res.send('hello');-
-    res.redirect('/');
+    res.redirect(process.env.REACT_FRONTEND_REDIRECT!);
   },
 );
 

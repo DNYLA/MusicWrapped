@@ -1,23 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
+import { MenuTable } from './mTable';
+import Example from './navbar';
+import { MusicWrapped } from './utils/APIHandler';
+import { User } from './utils/types';
 
+const loadingUser: User = {
+  id: '0',
+  username: 'bob',
+  displayName: 'Bob',
+  photoUrl: 'n/a',
+  refreshToken: '0',
+  accessToken: '0',
+  expires_in: 0,
+};
 function App() {
+  const [user, setUser] = useState(loadingUser);
+
+  useEffect(() => {
+    MusicWrapped.getUser().then((res: any) => {
+      console.log(res);
+      setUser(res);
+    });
+  }, []);
+
   return (
     <div className="App">
+      <Example />
+      <MenuTable />
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <img src={user.photoUrl} alt="Spotify Profile" />
         <p>
-          Edit <code>src/App.tsx</code> and save to reload.
+          Welcome <code>{user.displayName}</code> your UserID is {user.id}
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
     </div>
   );
