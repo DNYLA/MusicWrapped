@@ -4,7 +4,7 @@ import passport from 'passport';
 import session from 'express-session';
 import connectRedis from 'connect-redis';
 import { authRouter } from './routes/auth';
-import { PrismaClient } from '.prisma/client';
+import { PrismaClient } from '@prisma/client';
 import { redis } from './redis';
 import 'dotenv/config';
 
