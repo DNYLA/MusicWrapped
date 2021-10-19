@@ -1,0 +1,51 @@
+{
+  "name": "musicwrapped-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "watch": "tsc -w",
+    "dev": "nodemon dist/index.js",
+    "start": "node dist/index.ts",
+    "start2": "ts-node src/index.ts",
+    "dev2": "nodemon --exec ts-node src/index.ts",
+    "prisma": "npx prisma migrate dev --name init && npx prisma generate"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DNYLA/MusicWrapped.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DNYLA/MusicWrapped/issues"
+  },
+  "homepage": "https://github.com/DNYLA/MusicWrapped#readme",
+  "devDependencies": {
+    "@types/connect-redis": "^0.0.17",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/express-session": "^1.17.4",
+    "@types/ioredis": "^4.27.7",
+    "@types/node": "^16.10.3",
+    "@types/passport": "^1.0.7",
+    "@types/passport-spotify": "^2.0.1",
+    "nodemon": "^2.0.13",
+    "prisma": "^3.2.1",
+    "ts-node": "^10.2.1",
+    "tsconfig.json": "^1.0.10",
+    "typescript": "^4.4.3"
+  },
+  "dependencies": {
+    "@prisma/client": "^3.2.1",
+    "connect-redis": "^6.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "ioredis": "^4.28.0",
+    "passport": "^0.5.0",
+    "passport-spotify": "^2.0.0"
+  }
+}
