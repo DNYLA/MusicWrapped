@@ -1,35 +1,32 @@
 import Express from 'express';
 import cors from 'cors';
-import { Strategy as SpotifyStrategy } from 'passport-spotify';
 import passport from 'passport';
 import session from 'express-session';
+import { authRouter } from './routes/auth';
+import { PrismaClient } from '.prisma/client';
+
+const prisma = new PrismaClient();
+
+declare module 'express-session' {
+  interface Session {
+    passport: { user: User };
+  }
+}
 
 const main = async () => {
   const app = Express();
 
-  passport.serializeUser(function (user, done) {
-    done(null, user);
-  });
-
-  passport.deserializeUser(function (obj: any, done) {
-    done(null, obj);
-  });
-
-  passport.use(
-    new SpotifyStrategy(
-      {
-        clientID: '7a1747aec320462db0de26fe71a939bf',
-        clientSecret: '7f905e97b5c0437eba962530f1cdc4d8',
-        callbackURL: 'http://localhost:4000/auth/spotify/callback',
+  app.use(
+    session({
+      secret: 'keyboard cat',
+      resave: true,
+      saveUninitialized: false,
+      cookie: {
+        httpOnly: true,
+        secure: false,
+        maxAge: 1000 * 60 * 60 * 24 * 7, //1 Week
       },
-      function (accessToken, refreshToken, expires_in, profile, done) {
-        console.log(accessToken);
-
-        process.nextTick(function () {
-          return done(null, profile);
-        });
-      },
-    ),
+    }),
   );
 
   app.use(
@@ -39,44 +36,21 @@ const main = async () => {
     }),
   );
 
-  app.use(
-    session({
-      secret: 'keyboard cat',
-      resave: true,
-      saveUninitialized: true,
-    }),
-  );
-
   app.use(passport.initialize());
   app.use(passport.session());
 
-  app.get('/', function (req, res) {
-    console.log(req.accepted);
-    res.send('Hello World');
+  app.get('/', async function (req, res) {
+    console.log('TEST');
+    console.log(req.session);
+    const allUsers = await prisma.user.findMany();
+    // const allUsers = await prisma.user.findUnique({ where: { id: 1 } });
+    // res.send(allUsers);
+    return res.send(allUsers);
   });
 
-  app.get(
-    '/auth/spotify',
-    passport.authenticate('spotify', {
-      scope: ['user-read-email', 'user-read-private'],
-    }),
-  );
-
-  app.get(
-    '/auth/spotify/callback',
-    passport.authenticate('spotify', { failureRedirect: '/error' }),
-    function (req, res) {
-      console.log('running?');
-
-      console.log(req._destroy);
-      // Successful authentication, redirect home.
-      // res.send('hello');
-      res.redirect('/');
-    },
-  );
+  app.use('/auth', authRouter);
 
   app.get('/error', function (req, res) {
-    console.log(req._destroy);
     res.send('Invalid Login');
   });
 
@@ -85,6 +59,11 @@ const main = async () => {
   });
 };
 
-main().catch((err) => {
-  console.error(err);
-});
+main()
+  .catch((e) => {
+    console.error(e);
+    throw e;
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
