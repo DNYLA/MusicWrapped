@@ -2,8 +2,11 @@ import Express from 'express';
 import cors from 'cors';
 import passport from 'passport';
 import session from 'express-session';
+import connectRedis from 'connect-redis';
 import { authRouter } from './routes/auth';
 import { PrismaClient } from '.prisma/client';
+import { redis } from './redis';
+import 'dotenv/config';
 
 const prisma = new PrismaClient();
 
@@ -15,9 +18,13 @@ declare module 'express-session' {
 
 const main = async () => {
   const app = Express();
+  const RedisStore = connectRedis(session);
 
   app.use(
     session({
+      store: new RedisStore({
+        client: redis,
+      }),
       secret: 'keyboard cat',
       resave: true,
       saveUninitialized: false,

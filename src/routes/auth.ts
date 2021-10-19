@@ -1,7 +1,6 @@
 import Express, { Request } from 'express';
 import passport from 'passport';
 import { Strategy as SpotifyStrategy } from 'passport-spotify';
-import 'dotenv/config';
 import { PrismaClient } from '.prisma/client';
 
 const prisma = new PrismaClient();
