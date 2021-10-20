@@ -3,6 +3,8 @@ import passport from 'passport';
 import { Strategy as SpotifyStrategy } from 'passport-spotify';
 import { PrismaClient } from '.prisma/client';
 
+import 'dotenv/config';
+
 const prisma = new PrismaClient();
 const authRouter = Express.Router();
 

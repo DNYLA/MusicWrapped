@@ -6,8 +6,9 @@ import connectRedis from 'connect-redis';
 import { authRouter } from './routes/auth';
 import { PrismaClient } from '@prisma/client';
 import { redis } from './redis';
+import { User } from './types/User';
 import 'dotenv/config';
-import { userInfo } from 'os';
+require('dotenv').config();
 
 const prisma = new PrismaClient();
 
@@ -18,6 +19,7 @@ declare module 'express-session' {
 }
 
 const main = async () => {
+  require('dotenv').config();
   const app = Express();
   const RedisStore = connectRedis(session);
 
