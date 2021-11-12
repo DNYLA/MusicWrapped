@@ -8,12 +8,16 @@ interface mTableProps {
 type Tracks = {
   artists: any;
   name: string;
+  external_urls: any;
   album?: any;
 };
 
 const loadingTracks: Tracks = {
   artists: 'Loading...',
   name: 'Loading...',
+  external_urls: {
+    spotify: 'na',
+  },
   album: { images: [{ url: 'https://c.tenor.com/5o2p0tH5LFQAAAAi/hug.gif' }] },
 };
 
@@ -64,14 +68,14 @@ export const MenuTable = ({ range }: mTableProps) => {
                   </th>
                   <th
                     scope="col"
-                    className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                    className="px-8 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                   >
-                    Explicit
+                    Release Date
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {data.map((item) => (
+                {data.map((item, index) => (
                   <tr>
                     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                       <div className="flex items-center">
@@ -88,22 +92,36 @@ export const MenuTable = ({ range }: mTableProps) => {
                             />
                           </a>
                         </div>
-                        <div className="ml-3">
-                          <p className="text-gray-900 whitespace-no-wrap">
+                        <div className="ml-3 flex flex-row">
+                          <p className="">{index + 1}.&nbsp;</p>
+                          <a
+                            className="text-gray-900 whitespace-no-wrap hover:underline"
+                            href={
+                              item?.external_urls?.spotify
+                                ? item.external_urls.spotify
+                                : ''
+                            }
+                          >
                             {item.name}
-                          </p>
+                          </a>
                         </div>
                       </div>
                     </td>
                     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                      <p className="text-gray-900 whitespace-no-wrap">
+                      <a
+                        className="text-gray-900 whitespace-no-wrap hover:underline"
+                        href={item.artists[0]?.external_urls?.spotify}
+                      >
                         {item.artists[0].name}
-                      </p>
+                      </a>
                     </td>
                     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                      <p className="text-gray-900 whitespace-no-wrap">
+                      <a
+                        className="text-gray-900 whitespace-no-wrap hover:underline"
+                        href={item.album?.external_urls?.spotify}
+                      >
                         {item.album.name}
-                      </p>
+                      </a>
                     </td>
                     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                       <p className="text-gray-900 whitespace-no-wrap">
