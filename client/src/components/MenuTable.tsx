@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
-import './App.css';
-import { MusicWrapped } from './utils/APIHandler';
+import { MusicWrapped } from '../utils/APIHandler';
+
+interface mTableProps {
+  range: any;
+}
 
 type Tracks = {
   artists: any;
@@ -9,20 +12,23 @@ type Tracks = {
 };
 
 const loadingTracks: Tracks = {
-  artists: 'Bob Ross',
-  name: 'Jihaa',
-  album: { images: [{ url: 'http:www.com' }] },
+  artists: 'Loading...',
+  name: 'Loading...',
+  album: { images: [{ url: 'https://c.tenor.com/5o2p0tH5LFQAAAAi/hug.gif' }] },
 };
 
-export const MenuTable = () => {
+export const MenuTable = ({ range }: mTableProps) => {
   const [data, setData] = useState([loadingTracks]);
 
   useEffect(() => {
-    MusicWrapped.tracksTest().then((res: any) => {
+    MusicWrapped.User.getTopTracks(range).then((res: any) => {
       console.log(res);
+      if (res == null) {
+        return;
+      }
       setData(res.items);
     });
-  }, []);
+  }, [range]);
 
   if (data == null) {
     return <div></div>;

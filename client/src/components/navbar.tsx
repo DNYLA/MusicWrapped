@@ -4,17 +4,17 @@ import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
 
 const navigation = [
-  { name: 'Dashboard', href: '#1', current: true },
-  { name: 'Team', href: '#2', current: false },
-  { name: 'Projects', href: '#3', current: false },
-  { name: 'Calendar', href: '#4', current: false },
+  { name: 'Tracks', href: '#1', current: true },
+  { name: 'Artist', href: '#2', current: false },
+  { name: 'Genres', href: '#3', current: false },
+  { name: 'Recently Played', href: '#4', current: false },
 ];
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function Example() {
+export default function Navbar() {
   const clickFunction = () => {
     console.log('Clickeronio');
     console.log(navigation);
@@ -48,12 +48,12 @@ export default function Example() {
                   <img
                     className="block lg:hidden h-8 w-auto"
                     src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
-                    alt="Workflow"
+                    alt="MusicWrapped"
                   />
                   <img
                     className="hidden lg:block h-8 w-auto"
                     src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
-                    alt="Workflow"
+                    alt="MusicWrapped"
                   />
                 </div>
                 <div className="hidden sm:block sm:ml-6">

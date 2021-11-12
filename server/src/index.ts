@@ -4,6 +4,7 @@ import passport from 'passport';
 import session from 'express-session';
 import connectRedis from 'connect-redis';
 import { authRouter } from './routes/auth';
+import { userRouter } from './routes/spotify/user';
 import { PrismaClient } from '@prisma/client';
 import { redis } from './redis';
 import { User } from './types/User';
@@ -69,6 +70,7 @@ const main = async () => {
   });
 
   app.use('/auth', authRouter);
+  app.use('/spotify', userRouter);
 
   app.get('/error', function (req, res) {
     res.send('Invalid Login');

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { APIOptions } from '../utils/types';
+import { UserAPI } from './UserAPI';
 import { API } from './utils/BaseAPI';
 
 export default class MusicWrappedAPI {
@@ -13,7 +14,9 @@ export default class MusicWrappedAPI {
     }
   }
 
-  public async getUser() {
+  public User = new UserAPI(this.apiURL);
+
+  public async Login() {
     axios.defaults.withCredentials = true;
     // const loginURL = `${this.apiURL}/auth/spotify`;
     const loginURL = `${this.apiURL}/`;
@@ -26,23 +29,6 @@ export default class MusicWrappedAPI {
 
     try {
       const data = (await transport.get(loginURL)).data;
-      return data;
-    } catch (e: any) {
-      console.error(e);
-      return null;
-    }
-  }
-
-  public async tracksTest() {
-    const token =
-      'BQDHsFbSO8ObPfxjItkGMMYNbaKYAg9FxmIV1YgsPpNcR60XBz_j75FN2P51AGtnNquMmh9EMN5oh63yULRrWjHUPAYshAAg-Y-bNDucrzIc9thc9zrHoqr4AHSN1sTQ2oGQr4siEui_OBXPMpQ5zJCr4urBiQ-RBsWx-BNQU34x1GRu1tnjDDtgXuE';
-    try {
-      const data = (
-        await axios.get('https://api.spotify.com/v1/me/top/tracks', {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-      ).data;
-
       return data;
     } catch (e: any) {
       console.error(e);
