@@ -36,4 +36,8 @@ model SongRanking {
   User         User   @relation(fields: [userId], references: [id])
   userId       String
   songId       String
+  range String
 }
+
+
+

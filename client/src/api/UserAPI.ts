@@ -19,7 +19,7 @@ export class UserAPI extends API {
 }
 
 export enum Range {
-  Long = 'Long',
-  Medium = 'Medium',
-  Short = 'Short',
+  Long = 'long',
+  Medium = 'medium',
+  Short = 'short',
 }
