@@ -14,6 +14,7 @@ enum Methods {
 export class API {
   static accessToken = '';
   static options: APIOptions = { debug: false };
+
   constructor(private APIUrl: string) {
     axios.defaults.withCredentials = true; //Send Session Cookie every request
   }

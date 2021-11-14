@@ -11,9 +11,15 @@ export class UserAPI extends API {
     return await this.get(url);
   }
 
-  async getTopTracks(range: string) {
+  async getTopTracks(range: Range) {
     const url = this.getUrl() + `/top/tracks?time_range=${range}`;
 
     return await this.get(url);
   }
+}
+
+export enum Range {
+  Long = 'Long',
+  Medium = 'Medium',
+  Short = 'Short',
 }

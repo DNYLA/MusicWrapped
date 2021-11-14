@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Tab } from '@headlessui/react';
 import { MenuTable } from './MenuTable';
+import { Range } from '../api/UserAPI';
 
 interface ListboxProps {
   selected: any;
@@ -17,17 +18,17 @@ export function TabBox() {
     '4 Weeks': {
       id: 1,
       name: '4 Weeks',
-      value: 'short_term',
+      value: Range.Short,
     },
     '6 Months': {
       id: 2,
       name: '6 Months',
-      value: 'medium_term',
+      value: Range.Medium,
     },
     'All Time': {
       id: 3,
       name: 'All Time',
-      value: 'long_term',
+      value: Range.Long,
     },
   });
 

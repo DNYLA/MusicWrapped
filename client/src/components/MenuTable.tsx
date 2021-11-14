@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
+import { Range } from '../api/UserAPI';
 import { MusicWrapped } from '../utils/APIHandler';
 
 interface mTableProps {
-  range: any;
+  range: Range;
 }
 
 type Tracks = {
@@ -80,7 +81,7 @@ export const MenuTable = ({ range }: mTableProps) => {
                     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                       <div className="flex items-center">
                         <div className="flex-shrink-0">
-                          <a href="#" className="block relative">
+                          <p className="block relative">
                             <img
                               alt="profil"
                               src={
@@ -90,7 +91,7 @@ export const MenuTable = ({ range }: mTableProps) => {
                               }
                               className="mx-auto object-cover rounded-full h-10 w-10 "
                             />
-                          </a>
+                          </p>
                         </div>
                         <div className="ml-3 flex flex-row">
                           <p className="">{index + 1}.&nbsp;</p>
@@ -101,6 +102,7 @@ export const MenuTable = ({ range }: mTableProps) => {
                                 ? item.external_urls.spotify
                                 : ''
                             }
+                            target="_blank"
                           >
                             {item.name}
                           </a>
@@ -111,6 +113,7 @@ export const MenuTable = ({ range }: mTableProps) => {
                       <a
                         className="text-gray-900 whitespace-no-wrap hover:underline"
                         href={item.artists[0]?.external_urls?.spotify}
+                        target="_blank"
                       >
                         {item.artists[0].name}
                       </a>
@@ -119,6 +122,7 @@ export const MenuTable = ({ range }: mTableProps) => {
                       <a
                         className="text-gray-900 whitespace-no-wrap hover:underline"
                         href={item.album?.external_urls?.spotify}
+                        target="_blank"
                       >
                         {item.album.name}
                       </a>

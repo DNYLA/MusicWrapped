@@ -68,6 +68,7 @@ authRouter.get(
   function (req, res) {
     // Successful authentication, redirect home.
     console.log(req.session);
+    console.log('Call Back Hit?');
     // res.send(req.session);
     // req.session.userId = res.use;
     // res.send('hello');-

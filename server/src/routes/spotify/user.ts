@@ -6,6 +6,17 @@ import axios from 'axios';
 const prisma = new PrismaClient();
 export const userRouter = Express.Router();
 
+userRouter.use(function (req, res, next) {
+  const isAuth = req.isAuthenticated();
+  console.log(isAuth);
+
+  if (!isAuth) {
+    res.redirect('/auth/spotify');
+  } else {
+    next();
+  }
+});
+
 userRouter.get('/user', async function (req, res: Express.Response) {
   const passportSession = req.session.passport!;
   if (!passportSession) {
@@ -34,23 +45,40 @@ userRouter.get('/top/tracks', async function (req, res: Express.Response) {
     return res.send('Not Logged In');
   }
 
-  const range = req.query.time_range;
+  if (!req.query.time_range) {
+    return;
+  }
+
+  const range: Range =
+    Range[req.query.time_range as unknown as keyof typeof Range];
+
+  console.log('Test ' + req.query.time_range);
+  console.log(range);
 
   const token = user.accessToken;
+  let url = `https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=${range}`;
+  // let url = `https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=long_range`;
+
+  console.log(url);
 
   try {
     const data = (
-      await axios.get(
-        `https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=${range}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        },
-      )
+      await axios.get(url, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
     ).data;
 
+    // data.map((song: any) => console.log(song));
     return res.send(data);
   } catch (e: any) {
     console.error(e);
     return res.send(null);
   }
 });
+
+//Fix So Allows you to use Uppercase
+enum Range {
+  long = 'long_term',
+  medium = 'medium_term',
+  short = 'short_term',
+}
