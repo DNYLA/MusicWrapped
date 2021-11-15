@@ -2,18 +2,18 @@ import { useState } from 'react';
 import { Tab } from '@headlessui/react';
 import { MenuTable } from './MenuTable';
 import { Range } from '../api/UserAPI';
+import { TopTracksTable } from './TopTracksTable';
+import { TopArtistsTable } from './TopArtistTable';
 
-interface ListboxProps {
-  selected: any;
-  setSelected: any;
-  itemList: any;
+interface TabBoxProps {
+  isTracksTab: boolean;
 }
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ');
 }
 
-export function TabBox() {
+export function TabBox({ isTracksTab }: TabBoxProps) {
   let [categories] = useState({
     '4 Weeks': {
       id: 1,
@@ -73,7 +73,11 @@ export function TabBox() {
                 'focus:outline-none focus:ring-2 ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60'
               )}
             >
-              <MenuTable range={posts.value} />
+              {isTracksTab ? (
+                <TopTracksTable range={posts.value} />
+              ) : (
+                <TopArtistsTable range={posts.value} />
+              )}
             </Tab.Panel>
           ))}
         </Tab.Panels>

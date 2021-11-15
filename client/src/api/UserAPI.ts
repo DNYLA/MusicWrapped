@@ -16,6 +16,12 @@ export class UserAPI extends API {
 
     return await this.get(url);
   }
+
+  async getTopArtists(range: Range) {
+    const url = this.getUrl() + `/top/artists?time_range=${range}`;
+
+    return await this.get(url);
+  }
 }
 
 export enum Range {

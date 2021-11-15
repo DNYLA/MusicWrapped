@@ -23,7 +23,7 @@ const loadingTracks: Tracks = {
   album: { images: [{ url: 'https://c.tenor.com/5o2p0tH5LFQAAAAi/hug.gif' }] },
 };
 
-export const MenuTable = ({ range }: mTableProps) => {
+export const TopTracksTable = ({ range }: mTableProps) => {
   const [data, setData] = useState([loadingTracks]);
 
   useEffect(() => {

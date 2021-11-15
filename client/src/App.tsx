@@ -1,8 +1,11 @@
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { MusicWrapped } from './utils/APIHandler';
 import { User } from './utils/types';
 import Navbar from './components/navbar';
 import { TabBox } from './components/TabBox';
+import { TracksPage } from './pages/Tracks';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ArtistsPage } from './pages/Artist';
 
 const loadingUser: User = {
   id: '0',
@@ -26,27 +29,16 @@ function App() {
     });
   }, []);
 
-  if (loading) {
-    return (
-      <div>
-        <p>Loading</p>
-      </div>
-    );
-  }
-
   return (
-    <div className="App">
+    <Fragment>
       <Navbar />
-      <TabBox />
 
+      <Routes>
+        <Route path="/tracks" element={<TracksPage user={user} />} />
+        <Route path="/artists" element={<ArtistsPage user={user} />} />
+      </Routes>
       {/* <MenuTable range={selectedRange} /> */}
-      <header className="App-header">
-        <img src={user?.photoUrl} alt="Spotify Profile" />
-        <p>
-          Welcome <code>{user?.displayName}</code> your UserID is {user?.id}
-        </p>
-      </header>
-    </div>
+    </Fragment>
   );
 }
 
