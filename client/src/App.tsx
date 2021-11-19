@@ -36,6 +36,11 @@ function App() {
       <Routes>
         <Route path="/tracks" element={<TracksPage user={user} />} />
         <Route path="/artists" element={<ArtistsPage user={user} />} />
+        <Route path="/genres" element={<div>Genres Under Construction</div>} />
+        <Route
+          path="/recent"
+          element={<div>Recently Played Under Construction</div>}
+        />
       </Routes>
       {/* <MenuTable range={selectedRange} /> */}
     </Fragment>

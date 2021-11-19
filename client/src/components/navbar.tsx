@@ -7,8 +7,8 @@ import { Link } from 'react-router-dom';
 const navigation = [
   { name: 'Tracks', href: 'tracks', current: true },
   { name: 'Artist', href: 'artists', current: false },
-  { name: 'Genres', href: '#3', current: false },
-  { name: 'Recently Played', href: '#4', current: false },
+  { name: 'Genres', href: 'genres', current: false },
+  { name: 'Recently Played', href: 'recent', current: false },
 ];
 
 function classNames(...classes: any) {
