@@ -71,8 +71,13 @@ userRouter.get('/top/tracks', async function (req, res: Express.Response) {
       })
     ).data;
 
+    const newSongs = [];
+    const updateRanking = [];
+
+    //Connection might timeout if a user keeps switching between each range.
     data.items.forEach(async (song: any, index: number) => {
       // console.log(song);
+
       const rankingNum = index + 1;
       const rankId = user.id + song.id + range;
       const newSong = await prisma.song.upsert({
