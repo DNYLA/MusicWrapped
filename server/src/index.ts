@@ -8,6 +8,7 @@ import { userRouter } from './routes/spotify/user';
 import { PrismaClient } from '@prisma/client';
 import { redis } from './redis';
 import { User } from './types/User';
+import { isAuthorized } from './routes/auth';
 import 'dotenv/config';
 require('dotenv').config();
 
@@ -50,8 +51,11 @@ const main = async () => {
   app.use(passport.initialize());
   app.use(passport.session());
 
+  //Custom Middleware
+  app.use('/', isAuthorized);
+
   app.get('/', async function (req, res) {
-    console.log('TEST');
+    console.log('abcdefgasd');
     console.log(req.session);
     // const allUsers = await prisma.user.findMany();
     const passportSession = req.session.passport!;

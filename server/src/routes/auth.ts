@@ -1,4 +1,4 @@
-import Express, { Request } from 'express';
+import Express, { NextFunction, Request, Response } from 'express';
 import passport from 'passport';
 import { Strategy as SpotifyStrategy } from 'passport-spotify';
 import { PrismaClient } from '.prisma/client';
@@ -79,5 +79,34 @@ authRouter.get(
 authRouter.get('/spotify/details', function (req, res: Express.Response) {});
 
 export { authRouter };
+
+export async function isAuthorized(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  console.log('Running Auth Tesat');
+  const passportSession = req.session.passport!;
+
+  if (!passportSession) {
+    var err = new Error('Not Authorized!');
+    res.status(401).send(err);
+    res.redirect('/auth/spotify');
+    return next(err);
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { id: passportSession.user.id },
+  });
+
+  if (user) {
+    return next();
+  }
+
+  var err = new Error('Not Authorized!');
+  res.status(401).send(err);
+  res.redirect('/auth/spotify');
+  return next(err);
+}
 
 // export default authRouter;

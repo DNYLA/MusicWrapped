@@ -2,10 +2,11 @@ import Express, { Request } from 'express';
 import passport from 'passport';
 import { PrismaClient } from '.prisma/client';
 import axios from 'axios';
+import { isAuthorized } from '../auth';
 
 const prisma = new PrismaClient();
 export const userRouter = Express.Router();
-
+userRouter.use(isAuthorized);
 userRouter.use(function (req, res, next) {
   const isAuth = req.isAuthenticated();
   console.log(isAuth);
