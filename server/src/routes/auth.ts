@@ -8,6 +8,7 @@ import 'dotenv/config';
 const prisma = new PrismaClient();
 const authRouter = Express.Router();
 
+//Change to Serialize ID only.
 passport.serializeUser(async function (data: any, done) {
   const { id, username, displayName, photos } = data.profile;
   const photoUrl = photos[0].value ? photos[0].value : null;
@@ -33,6 +34,7 @@ passport.serializeUser(async function (data: any, done) {
   done(null, upsertedUser);
 });
 
+//Change to fetch User from ID.
 passport.deserializeUser(function (obj: any, done) {
   done(null, obj);
 });
